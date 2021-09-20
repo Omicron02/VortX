@@ -16,9 +16,19 @@ client.on("message", msg =>
 {
     if (msg.author.bot)
         return
-    if (msg.content===PREFIX+"ping")
+    if (msg.content.startsWith(PREFIX))
     {
-        msg.reply("pong");
+        var Command=msg.content.toLowerCase().slice(PREFIX.length).split(" ")
+        
+        if(Command[0]==="ping")
+        {
+           // msg.channel.send()
+            const embed = new Discord.MessageEmbed()
+                .setTitle(`Hello ${msg.author.username}!`)
+                .setColor("RANDOM")
+                .setThumbnail(msg.author.avatarURL())
+            msg.channel.send({embeds: [embed]})
+        }
     }
 })
 
