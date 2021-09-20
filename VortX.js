@@ -3,7 +3,7 @@ const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES"]})
 const dotenv = require("dotenv")
 dotenv.config()
 
-PREFIX="!!"
+PREFIX="!!" 
 
 client.on("ready", () =>
 {
