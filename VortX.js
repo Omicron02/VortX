@@ -7,9 +7,36 @@ client.login(process.env.TOKEN)
 
 PREFIX=process.env.PREFIX
 
+function Ping_Embed(msg)
+{
+    return new Discord.MessageEmbed()
+            .setTitle(`Hello ${msg.author.username}!`)
+            .setColor("RANDOM")
+            .setThumbnail(msg.author.avatarURL())
+}
+
 client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
+
+    let slashCommands=client.application?.slashCommands
+    slashCommands?.create(
+    {
+        name: "ping",
+        description: "Replies with hello user embed"
+    })
+})
+
+client.on("interactionCreate", async intr =>
+{
+    if(!intr.isCommand())
+        return
+    const {commandName,options} = intr
+
+    if (commandName === "ping")
+    {
+        intr.channel.send({embeds: [Ping_Embed(intr)]})
+    }  
 })
 
 client.on("messageCreate", msg =>
@@ -21,12 +48,7 @@ client.on("messageCreate", msg =>
     
     if(Command[0]==="ping")
     {
-        // msg.channel.send()
-        const PingEmbed = new Discord.MessageEmbed()
-            .setTitle(`Hello ${msg.author.username}!`)
-            .setColor("RANDOM")
-            .setThumbnail(msg.author.avatarURL())
-        msg.channel.send({embeds: [PingEmbed]})
+        msg.channel.send({embeds: [Ping_Embed(msg)]})
     }
 
     // else if(Command[0]==="prefix")
