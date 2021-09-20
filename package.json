@@ -1,0 +1,22 @@
+{
+  "name": "vortx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "VortX.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Omicron02/VortX.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Omicron02/VortX/issues"
+  },
+  "homepage": "https://github.com/Omicron02/VortX#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  }
+}
