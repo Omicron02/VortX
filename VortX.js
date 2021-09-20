@@ -5,30 +5,40 @@ const dotenv = require("dotenv")
 dotenv.config()
 client.login(process.env.TOKEN)
 
-PREFIX="!!" 
+PREFIX=process.env.PREFIX
 
 client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
-client.on("message", msg =>
+client.on("messageCreate", msg =>
 {
-    if (msg.author.bot)
+    if (msg.author.bot || !msg.content.startsWith(PREFIX))
         return
-    if (msg.content.startsWith(PREFIX))
+
+    var Command=msg.content.toLowerCase().slice(PREFIX.length).split(" ")
+    
+    if(Command[0]==="ping")
     {
-        var Command=msg.content.toLowerCase().slice(PREFIX.length).split(" ")
-        
-        if(Command[0]==="ping")
-        {
-           // msg.channel.send()
-            const embed = new Discord.MessageEmbed()
-                .setTitle(`Hello ${msg.author.username}!`)
-                .setColor("RANDOM")
-                .setThumbnail(msg.author.avatarURL())
-            msg.channel.send({embeds: [embed]})
-        }
+        // msg.channel.send()
+        const PingEmbed = new Discord.MessageEmbed()
+            .setTitle(`Hello ${msg.author.username}!`)
+            .setColor("RANDOM")
+            .setThumbnail(msg.author.avatarURL())
+        msg.channel.send({embeds: [PingEmbed]})
     }
+
+    // else if(Command[0]==="prefix")
+    // {
+    //     if(Command[1])
+    //     {
+    //         process.env.PREFIX=Command[1]
+    //         msg.channel.send("Prefix changed to "+Command[1])
+    //     }
+    //     else
+    //         msg.channel.send("Usage: "+PREFIX+"prefix <new prefix>")
+    // }
+
 })
 
