@@ -3,6 +3,8 @@ const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES"]})
 const dotenv = require("dotenv")
 dotenv.config()
 
+PREFIX="!!"
+
 client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
@@ -10,7 +12,7 @@ client.on("ready", () =>
 
 client.on("message", msg =>
 {
-    if (msg.content==="!!ping")
+    if (msg.content===PREFIX+"ping")
     {
         msg.reply("pong");
     }
