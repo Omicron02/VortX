@@ -9,6 +9,34 @@ client.login(process.env.TOKEN)
 PREFIX=process.env.PREFIX
 const globalSongQueue = new Map()
 
+function PP_Embed(msg)
+{
+    let ppsize="=".repeat(parseInt(Math.random()*14))
+    return new Discord.MessageEmbed()
+            .setTitle("**Peepee Size Machine**")
+            .setColor("RANDOM")
+            .setDescription(msg.author.username+"'s penis size: \n8"+ppsize+"D")
+            .setThumbnail(msg.author.avatarURL())
+}
+
+function PP_Embed_Slash(intr)
+{
+    let ppsize="=".repeat(parseInt(Math.random()*14))
+    return new Discord.MessageEmbed()
+            .setTitle("**Peepee Size Machine**")
+            .setColor("RANDOM")
+            .setDescription(intr.member.user.username+"'s penis size: \n8"+ppsize+"D")
+            .setThumbnail(intr.member.user.avatarURL())
+
+}
+
+function Ping_Embed_Slash(intr)
+{
+    return new Discord.MessageEmbed()
+            .setTitle(`Hello ${intr.member.user.username}!`)
+            .setColor("RANDOM")
+            .setThumbnail(intr.member.user.avatarURL())
+}
 function Ping_Embed(msg)
 {
     return new Discord.MessageEmbed()
@@ -20,6 +48,7 @@ function Ping_Embed(msg)
 async function Play_Song(msg, Command, serverSongQueue)
 {
     const voiceChannel=msg.member.voice.channel
+    console.log(voiceChannel)
     if(!voiceChannel)
         return msg.channel.send("You need to be in a voice channel to play music!")
     
@@ -91,24 +120,28 @@ client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
 
-    let slashCommands=client.application?.slashCommands
-    slashCommands?.create(
-    {
-        name: "ping",
-        description: "Replies with hello user embed"
-    })
+    // let slashCommands=client.application?.slashCommands
+    // slashCommands?.create(
+    // {
+    //     name: "pp",
+    //     description: "Shows pp size"
+    // })
 })
 
 client.on("interactionCreate", async intr =>
 {
     if(!intr.isCommand())
         return
-    const {commandName,options} = intr
+    const {commandName, options}=intr
 
     if (commandName === "ping")
     {
-        intr.channel.send({embeds: [Ping_Embed(intr)]})
+        intr.reply({embeds: [Ping_Embed_Slash(intr)]})
     }  
+    else if (commandName === "pp")
+    {
+        intr.reply({embeds: [PP_Embed_Slash(intr)]})
+    }
 })
 
 client.on("messageCreate", msg =>
@@ -124,9 +157,14 @@ client.on("messageCreate", msg =>
     }
     
     //else if(["play","p"].includes(Command[0]))
-    else if (Command[0]==="play")
+    // else if (Command[0]==="play")
+    // {
+    //     Play_Song(msg, Command, serverSongQueue)
+    // }
+
+    else if (["pp","peepee","penis","peen"].includes(Command[0]))
     {
-        Play_Song(msg, Command, serverSongQueue)
+        msg.channel.send({embeds: [PP_Embed(msg)]})
     }
 
     // else if(Command[0]==="prefix")
