@@ -36,9 +36,15 @@ client.on("interactionCreate", async intr =>
     {
         intr.reply({embeds: [slashFuncs.Ping_Embed_Slash(intr)]})
     }  
+
     else if (commandName === "pp")
     {
         intr.reply({embeds: [slashFuncs.PP_Embed_Slash(intr)]})
+    }
+
+    else if (commandName === "gayrate")
+    {
+        intr.reply({embeds: [slashFuncs.Gayrate_Embed_Slash(intr)]})
     }
 })
 
