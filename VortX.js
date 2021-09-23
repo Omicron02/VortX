@@ -10,6 +10,7 @@ dotenv.config()
 client.login(process.env.TOKEN)
 
 const PREFIX=process.env.PREFIX
+const COLOUR="#8cff66"
 const globalSongQueue = new Map()
 
 

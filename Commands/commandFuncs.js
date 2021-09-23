@@ -1,12 +1,12 @@
 const Discord = require("discord.js")
-
+const COLOUR = "#8cff66"
 
 function PP_Embed(msg)
 {
     let ppsize="=".repeat(parseInt(Math.random()*14))
     return new Discord.MessageEmbed()
             .setTitle("**Peepee Size Machine**")
-            .setColor("RANDOM")
+            .setColor(COLOUR)
             .setDescription(msg.author.username+"'s penis size: \n8"+ppsize+"D")
             .setThumbnail(msg.author.avatarURL())
 }
@@ -16,7 +16,7 @@ function Ping_Embed(msg)
 
     return new Discord.MessageEmbed()
             .setTitle(`Hello ${msg.author.username}!`)
-            .setColor("RANDOM")
+            .setColor(COLOUR)
             .setThumbnail(msg.author.avatarURL())
 }
 
@@ -34,7 +34,7 @@ function Gayrate_Embed(msg)
 
     return new Discord.MessageEmbed()
             .setTitle("**Gayness Calculator**")
-            .setColor("RANDOM")
+            .setColor(COLOUR)
             .setDescription(`${msg.author.username} is ${rate}% gay`)
             .setThumbnail(gayness)
 }
