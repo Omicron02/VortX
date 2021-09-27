@@ -1,3 +1,5 @@
+const Discord = require("discord.js")
+
 async function Play_Song(msg, Command, serverSongQueue)
 {
     const voiceChannel=msg.member.voice.channel
@@ -68,3 +70,6 @@ function Queue_Play_Recursive(guild, song)
     dispatcher.setVolumeLogarithmic(serverQueue.volume/5)
     serverSongQueue.textChannel.send(`Start playing: **${song.title}**`)
 }
+
+module.exports = {Play_Song, Queue_Play_Recursive}
+

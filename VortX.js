@@ -1,7 +1,8 @@
 const Discord = require("discord.js")
 const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES"]})
 const ytdl = require("ytdl-core")
-
+const ytSearch = require("yt-search")
+const Song = require("./Commands/songFuncs")
 const cmdFuncs = require("./Commands/commandFuncs")
 const slashFuncs = require("./Commands/slashFuncs")
 
@@ -48,7 +49,7 @@ client.on("interactionCreate", async intr =>
     }
 })
 
-client.on("messageCreate", msg =>
+client.on("messageCreate", async msg =>
 {
     if (msg.author.bot || !msg.content.startsWith(PREFIX))
         return
@@ -60,11 +61,10 @@ client.on("messageCreate", msg =>
         msg.channel.send({embeds: [cmdFuncs.Ping_Embed(msg)]})
     }
     
-    //else if(["play","p"].includes(Command[0]))
-    // else if (Command[0]==="play")
-    // {
-    //     Play_Song(msg, Command, serverSongQueue)
-    // }
+    else if(["play","p"].includes(Command[0]))
+    {
+        Song.Play_Song(msg, Command, serverSongQueue)
+    }
 
     else if (Command[0]==="gayrate")
     {
@@ -75,7 +75,10 @@ client.on("messageCreate", msg =>
     {
         msg.channel.send({embeds: [cmdFuncs.PP_Embed(msg)]})
     }
-
+    else if (msg.member.voice.channel && Command[0]=="join") 
+    {
+		const connection = await msg.member.voice.channel.join();
+    }
     // else if(Command[0]==="prefix")
     // {
     //     if(Command[1])
