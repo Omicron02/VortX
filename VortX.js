@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES"]})
+const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES","GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"]})
 const ytdl = require("ytdl-core")
 const ytSearch = require("yt-search")
 const Song = require("./Commands/songFuncs")
