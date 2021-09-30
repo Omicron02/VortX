@@ -7,8 +7,8 @@ const Song = require("./Commands/songFuncs")
 const cmdFuncs = require("./Commands/commandFuncs")
 const slashFuncs = require("./Commands/slashFuncs")
 
-const dotenv = require("dotenv")
-dotenv.config()
+// const dotenv = require("dotenv")
+// dotenv.config()
 client.login(process.env.TOKEN)
 
 const PREFIX=process.env.PREFIX
