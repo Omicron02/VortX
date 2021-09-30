@@ -1,5 +1,6 @@
 const Discord = require("discord.js")
-const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES","GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"]})
+const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES",]})
+//"GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"
 const ytdl = require("ytdl-core")
 const ytSearch = require("yt-search")
 const Song = require("./Commands/songFuncs")
@@ -51,6 +52,15 @@ client.on("interactionCreate", async intr =>
 
 client.on("messageCreate", async msg =>
 {
+    if (msg.content.startsWith("<@") && msg.content.endsWith(">"))
+    {
+        let mentionId=msg.content.slice(2,-1)
+        if (mentionId.startsWith("!"))
+            mentionId=mentionId.slice(1)
+        if (mentionId===client.user.id)
+            msg.channel.send({content: `My prefix is ${PREFIX}`})
+
+    }
     if (msg.author.bot || !msg.content.startsWith(PREFIX))
         return
     const serverSongQueue = globalSongQueue.get(msg.guild.id)
