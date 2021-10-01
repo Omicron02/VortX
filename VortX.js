@@ -14,6 +14,7 @@ const mongoose = require("mongoose")
 const pingFuncs = require("./Commands/pingFuncs")
 const ppFuncs = require("./Commands/ppFuncs")
 const gayrateFuncs = require("./Commands/gayrateFuncs")
+const prefixFuncs = require("./Commands/prefixFuncs")
 
 const IdFromMention = require("./idMention")
 
@@ -79,8 +80,8 @@ client.on("interactionCreate", async intr =>
 client.on("messageCreate", async msg =>
 {
     var prefixData = await prefixSchema.findOne({guildID: msg.guild.id})
-    const PREFIX = prefixData ? prefixData.prefix : client.PREFIX;
-    
+    const PREFIX = prefixData?prefixData.prefix:client.PREFIX;
+
         mentionId = IdFromMention(msg.content)
         if (mentionId===client.user.id)
             msg.channel.send({content: `My prefix is ${PREFIX}`})
@@ -113,16 +114,10 @@ client.on("messageCreate", async msg =>
     // {
 	// 	const connection = await msg.member.voice.channel.join();
     // }
-    // else if(Command[0]==="prefix")
-    // {
-    //     if(Command[1])
-    //     {
-    //         process.env.PREFIX=Command[1]
-    //         msg.channel.send("Prefix changed to "+Command[1])
-    //     }
-    //     else
-    //         msg.channel.send("Usage: "+PREFIX+"prefix <new prefix>")
-    // }
+    else if(Command[0]==="prefix")
+    {
+        prefixFuncs.prefixEdit(client,msg,Command)
+    }
 
 })
 
