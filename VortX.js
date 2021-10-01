@@ -1,8 +1,14 @@
 const Discord = require("discord.js")
-const client = new Discord.Client({intents:["GUILDS","GUILD_MESSAGES",]})
+const client = new Discord.Client({intents:
+    ["GUILDS",
+    "GUILD_MESSAGES"
+    ]})
+
 //"GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"
 const ytdl = require("ytdl-core")
 const ytSearch = require("yt-search")
+const mongoose = require("mongoose")
+
 const Song = require("./Commands/songFuncs")
 const cmdFuncs = require("./Commands/commandFuncs")
 const slashFuncs = require("./Commands/slashFuncs")
@@ -10,6 +16,20 @@ const slashFuncs = require("./Commands/slashFuncs")
 // const dotenv = require("dotenv")
 // dotenv.config()
 client.login(process.env.TOKEN)
+
+mongoose.connect(process.env.MONGODB_SRV,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
+    }).then(() =>
+    {
+        console.log("Database connection successful")
+    }).catch( e =>
+    {
+        console.log(e)
+    })
+
 
 const PREFIX=process.env.PREFIX
 const COLOUR="#8cff66"
