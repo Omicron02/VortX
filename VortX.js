@@ -10,8 +10,9 @@ const ytSearch = require("yt-search")
 const mongoose = require("mongoose")
 
 const Song = require("./Commands/songFuncs")
-const cmdFuncs = require("./Commands/commandFuncs")
-const slashFuncs = require("./Commands/slashFuncs")
+const pingFuncs = require("./Commands/PingFuncs")
+const ppFuncs = require("./Commands/ppFuncs")
+const gayrateFuncs = require("./Commands/gayrateFuncs")
 
 // const dotenv = require("dotenv")
 // dotenv.config()
@@ -30,9 +31,8 @@ mongoose.connect(process.env.MONGODB_SRV,
         console.log(e)
     })
 
-
 const PREFIX=process.env.PREFIX
-const COLOUR="#8cff66"
+const COLOUR=process.env.COLOUR
 const globalSongQueue = new Map()
 
 
@@ -52,21 +52,22 @@ client.on("interactionCreate", async intr =>
 {
     if(!intr.isCommand())
         return
+
     const {commandName, options}=intr
 
     if (commandName === "ping")
     {
-        intr.reply({embeds: [slashFuncs.Ping_Embed_Slash(intr)]})
+        pingFuncs.pingSlash(intr)
     }  
 
     else if (commandName === "pp")
     {
-        intr.reply({embeds: [slashFuncs.PP_Embed_Slash(intr)]})
+        ppFuncs.ppSlash(intr)
     }
 
     else if (commandName === "gayrate")
     {
-        intr.reply({embeds: [slashFuncs.Gayrate_Embed_Slash(intr)]})
+        gayrateFuncs.gayrateSlash(intr)
     }
 })
 
@@ -88,27 +89,27 @@ client.on("messageCreate", async msg =>
     
     if(Command[0]==="ping")
     {
-        msg.channel.send({embeds: [cmdFuncs.Ping_Embed(msg)]})
+        pingFuncs.pingCmd(msg)
     }
     
-    else if(["play","p"].includes(Command[0]))
-    {
-        Song.Play_Song(msg, Command, serverSongQueue)
-    }
+    // else if(["play","p"].includes(Command[0]))
+    // {
+    //     Song.Play_Song(msg, Command, serverSongQueue)
+    // }
 
     else if (Command[0]==="gayrate")
     {
-        msg.channel.send({embeds:[cmdFuncs.Gayrate_Embed(msg)]})
+        gayrateFuncs.gayrateCmd(msg)
     }
 
     else if (["pp","peepee","penis","peen"].includes(Command[0]))
     {
-        msg.channel.send({embeds: [cmdFuncs.PP_Embed(msg)]})
+        ppFuncs.ppCmd(msg)
     }
-    else if (msg.member.voice.channel && Command[0]=="join") 
-    {
-		const connection = await msg.member.voice.channel.join();
-    }
+    // else if (msg.member.voice.channel && Command[0]=="join") 
+    // {
+	// 	const connection = await msg.member.voice.channel.join();
+    // }
     // else if(Command[0]==="prefix")
     // {
     //     if(Command[1])
