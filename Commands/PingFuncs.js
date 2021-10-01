@@ -3,12 +3,11 @@ const COLOUR = process.env.COLOUR
 
 module.exports = {pingCmd, pingSlash}
 
-function pingCmd(msg)
+function pingCmd(client,msg,Command)
 {
-
     let pingEmbed = new Discord.MessageEmbed()
         .setTitle(`Hello ${msg.author.username}!`)
-        .setColor(COLOUR)
+        .setColor(client.COLOUR)
         .setThumbnail(msg.author.avatarURL())
     msg.channel.send({embeds: [pingEmbed]})
 }

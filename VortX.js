@@ -3,16 +3,19 @@ const client = new Discord.Client({intents:
     ["GUILDS",
     "GUILD_MESSAGES"
     ]})
-
 //"GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"
-const ytdl = require("ytdl-core")
-const ytSearch = require("yt-search")
+
+
+// const ytdl = require("ytdl-core")
+// const ytSearch = require("yt-search")
 const mongoose = require("mongoose")
 
-const Song = require("./Commands/songFuncs")
-const pingFuncs = require("./Commands/PingFuncs")
+// const Song = require("./Commands/songFuncs")
+const pingFuncs = require("./Commands/pingFuncs")
 const ppFuncs = require("./Commands/ppFuncs")
 const gayrateFuncs = require("./Commands/gayrateFuncs")
+
+const IdFromMention = require("./idMention")
 
 // const dotenv = require("dotenv")
 // dotenv.config()
@@ -31,8 +34,8 @@ mongoose.connect(process.env.MONGODB_SRV,
         console.log(e)
     })
 
-const PREFIX=process.env.PREFIX
-const COLOUR=process.env.COLOUR
+client.PREFIX = process.env.PREFIX
+client.COLOUR = process.env.COLOUR
 const globalSongQueue = new Map()
 
 
@@ -46,6 +49,8 @@ client.on("ready", () =>
     //     description: "Displays gayness"
     // })
     // console.log(command)
+
+    
 })
 
 client.on("interactionCreate", async intr =>
@@ -73,15 +78,13 @@ client.on("interactionCreate", async intr =>
 
 client.on("messageCreate", async msg =>
 {
-    if (msg.content.startsWith("<@") && msg.content.endsWith(">"))
-    {
-        let mentionId=msg.content.slice(2,-1)
-        if (mentionId.startsWith("!"))
-            mentionId=mentionId.slice(1)
+    var prefixData = await prefixSchema.findOne({guildID: msg.guild.id})
+    const PREFIX = prefixData ? prefixData.prefix : client.PREFIX;
+    
+        mentionId = IdFromMention(msg.content)
         if (mentionId===client.user.id)
             msg.channel.send({content: `My prefix is ${PREFIX}`})
 
-    }
     if (msg.author.bot || !msg.content.startsWith(PREFIX))
         return
     const serverSongQueue = globalSongQueue.get(msg.guild.id)
@@ -89,7 +92,7 @@ client.on("messageCreate", async msg =>
     
     if(Command[0]==="ping")
     {
-        pingFuncs.pingCmd(msg)
+        pingFuncs.pingCmd(client,msg,Command)
     }
     
     // else if(["play","p"].includes(Command[0]))
