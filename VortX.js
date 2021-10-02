@@ -26,8 +26,7 @@ client.login(process.env.TOKEN)
 mongoose.connect(process.env.MONGODB_SRV,
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false
+        useUnifiedTopology: true
     }).then(() =>
     {
         console.log("Database connection successful")
