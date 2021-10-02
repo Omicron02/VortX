@@ -4,8 +4,7 @@ const client = new Discord.Client({intents:
     "GUILD_MESSAGES"
     ]})
 //"GUILD_MEMBERS","GUILD_PRESENCES","GUILD_VOICE_STATES","GUILD_MESSAGE_REACTIONS"
-
-
+ 
 // const ytdl = require("ytdl-core")
 // const ytSearch = require("yt-search")
 const mongoose = require("mongoose")
@@ -22,7 +21,7 @@ const IdFromMention = require("./idMention")
 const dotenv = require("dotenv")
 dotenv.config()
 client.login(process.env.TOKEN)
-
+        
 mongoose.connect(process.env.MONGODB_SRV,
     {
         useNewUrlParser: true,
