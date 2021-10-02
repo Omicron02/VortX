@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_SRV,
         useUnifiedTopology: true
     }).then(() =>
     {
-        console.log("Database connection successful")
+        console.log("Database connection successful!")
     }).catch( e =>
     {
         console.log(e)
@@ -45,9 +45,7 @@ client.on("ready", () =>
     console.log(`Logged in as ${client.user.tag}!`)
     
     // const command=client.application?.commands.create(
-    // {
-    //     name: "gayrate",
-    //     description: "Displays gayness"
+    // {  
     // })
     // console.log(command)
 
@@ -74,6 +72,11 @@ client.on("interactionCreate", async intr =>
     else if (commandName === "gayrate")
     {
         gayrateFuncs.gayrateSlash(intr)
+    }
+
+    else if (commandName === "prefix")
+    {
+        prefixFuncs.prefixEditSlash(client,intr,options)
     }
 })
 

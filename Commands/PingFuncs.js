@@ -15,9 +15,9 @@ function pingCmd(client,msg,Command)
 function pingSlash(intr)
 {
     let pingEmbedSlash = new Discord.MessageEmbed()
-        .setTitle(`Hello ${intr.member.user.username}!`)
+        .setTitle(`Hello ${intr.user.username}!`)
         .setColor(COLOUR)
-        .setThumbnail(intr.member.user.avatarURL())
+        .setThumbnail(intr.user.avatarURL())
     intr.reply({embeds: [pingEmbedSlash]})
 }
 

@@ -35,7 +35,7 @@ function gayrateSlash(intr)
     let gayrateEmbedSlash = new Discord.MessageEmbed()
         .setTitle("**Gayness Calculator**")
         .setColor(COLOUR)
-        .setDescription(`${intr.member.user.username} is ${rate}% gay`)
+        .setDescription(`${intr.user.username} is ${rate}% gay`)
         .setThumbnail(gayness)
     intr.reply({embeds: [gayrateEmbedSlash]})
 } 

@@ -1,28 +1,26 @@
-const Discord = require("discord.js")
 const mongoose = require("mongoose")
 const prefixSchema = require("../models/prefix")
 
-module.exports = {prefixEdit}
+module.exports = {prefixEdit,prefixEditSlash}
 
-async function prefixEdit(client, msg, Command)
+async function prefixUpdate(client,msgintr,newPrefix)
 {
-    let newPrefix = await Command[1]?Command[1]:client.PREFIX
-    prefixSchema.findOne({guildID: msg.guild.id}, async (err,data) =>
-    {
-        if(err) 
-        {
-            throw err
-        }
-        if(data)
-        {
-            prefixSchema.findOneAndDelete({guildID: msg.guild.id})
-        }
-        data = new prefixSchema
-            ({
-                guildID: msg.guild.id,
-                prefix: newPrefix
-            })
-            data.save()
-            msg.channel.send(`Your prefix has been updated to **${newPrefix}**`)
-    })
+    await prefixSchema.findOneAndUpdate({guildID: msgintr.guild.id}, 
+        {guildID: msgintr.guild.id, prefix: newPrefix},
+        {upsert: true})
+}
+
+function prefixEdit(client, msg, Command)
+{
+    let newPrefix = Command[1]?Command[1]:client.PREFIX
+    prefixUpdate(client,msg,newPrefix)
+    msg.channel.send(`Prefix has been updated to **${newPrefix}**`)
+}
+
+function prefixEditSlash(client,intr,options)
+{
+    let prefixCmd = options.getString("prefix_value")
+    let newPrefix = prefixCmd?prefixCmd:client.PREFIX
+    prefixUpdate(client,intr,newPrefix)
+    intr.reply(`Prefix has been updated to **${newPrefix}**`)
 }
