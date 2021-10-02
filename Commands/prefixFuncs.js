@@ -6,10 +6,10 @@ module.exports = {prefixEdit}
 
 async function prefixEdit(client, msg, Command)
 {
-    let newPrefix = Command[1]?Command[1]:client.PREFIX
-    prefixSchema.findOne({guildID: msg.guild.id}, async(e,data) =>
+    let newPrefix = await Command[1]?Command[1]:client.PREFIX
+    prefixSchema.findOne({guildID: msg.guild.id}, async (err,data) =>
     {
-        if(e) 
+        if(err) 
         {
             throw e
         }
