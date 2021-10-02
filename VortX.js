@@ -15,11 +15,12 @@ const pingFuncs = require("./Commands/pingFuncs")
 const ppFuncs = require("./Commands/ppFuncs")
 const gayrateFuncs = require("./Commands/gayrateFuncs")
 const prefixFuncs = require("./Commands/prefixFuncs")
+const prefixSchema = require("./models/prefix")
 
 const IdFromMention = require("./idMention")
 
-// const dotenv = require("dotenv")
-// dotenv.config()
+const dotenv = require("dotenv")
+dotenv.config()
 client.login(process.env.TOKEN)
 
 mongoose.connect(process.env.MONGODB_SRV,
