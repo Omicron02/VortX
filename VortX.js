@@ -14,6 +14,7 @@ const pingFuncs = require("./Commands/pingFuncs")
 const ppFuncs = require("./Commands/ppFuncs")
 const gayrateFuncs = require("./Commands/gayrateFuncs")
 const prefixFuncs = require("./Commands/prefixFuncs")
+const downbadFuncs = require("./Commands/downbadFuncs")
 const prefixSchema = require("./models/prefix")
 
 const IdFromMention = require("./idMention")
@@ -43,10 +44,12 @@ client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
     
-    // const command=client.application?.commands.create(
-    // {  
-    // })
-    // console.log(command)
+    const command=client.application?.commands.create(
+    {  
+        name: "downbad",
+        description: "downbad rate"
+    })
+    console.log(command)
 
     
 })
@@ -76,6 +79,11 @@ client.on("interactionCreate", async intr =>
     else if (commandName === "prefix")
     {
         prefixFuncs.prefixEditSlash(client,intr,options)
+    }
+
+    else if (commandName === "downbad")
+    {
+        downbadFuncs.downbadSlash(intr)
     }
 })
 
@@ -111,6 +119,11 @@ client.on("messageCreate", async msg =>
     else if (["pp","peepee","penis","peen"].includes(Command[0]))
     {
         ppFuncs.ppCmd(msg)
+    }
+
+    else if (Command[0]==="downbad")
+    {
+        downbadFuncs.downbadCmd(msg)
     }
     // else if (msg.member.voice.channel && Command[0]=="join") 
     // {
