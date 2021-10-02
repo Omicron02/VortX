@@ -11,7 +11,7 @@ async function prefixEdit(client, msg, Command)
     {
         if(err) 
         {
-            throw e
+            throw err
         }
         if(data)
         {
