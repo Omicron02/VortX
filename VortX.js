@@ -43,13 +43,14 @@ const globalSongQueue = new Map()
 client.on("ready", () =>
 {
     console.log(`Logged in as ${client.user.tag}!`)
+    client.user.setActivity("Eye To Eye", {type: "LISTENING"})
     
-    const command=client.application?.commands.create(
-    {  
-        name: "downbad",
-        description: "downbad rate"
-    })
-    console.log(command)
+    // const command=client.application?.commands.create(
+    // {  
+    //     name: "downbad",
+    //     description: "downbad rate"
+    // })
+    // console.log(command)
 
     
 })
