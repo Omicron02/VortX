@@ -140,7 +140,7 @@ client.on("messageCreate", async msg =>
     else if (["pp","peepee","penis","peen"].includes(Command[0]))
     {
         ppFuncs.ppCmd(msg)
-        commandCountFuncs.commandCountIncrement(Command[0])
+        commandCountFuncs.commandCountIncrement("pp")
     }
 
     else if (Command[0]==="downbad")
