@@ -20,7 +20,7 @@ const commandCountFuncs = require("./Commands/commandCountFuncs")
 const prefixSchema = require("./models/prefix")
 // const commandCountSchema = require("./models/commandCount")
 
-const IdFromMention = require("./idMention")
+const {idMention}= require("./idMention")
 
 // const dotenv = require("dotenv")
 // dotenv.config()
@@ -111,7 +111,7 @@ client.on("messageCreate", async msg =>
     var prefixData = await prefixSchema.findOne({guildID: msg.guild.id})
     const PREFIX = prefixData?prefixData.prefix:client.PREFIX;
 
-        mentionId = IdFromMention(msg.content)
+        mentionId = idMention(msg.content)
         if (mentionId===client.user.id)
             msg.channel.send({content: `My prefix is ${PREFIX}`})
 
@@ -166,6 +166,4 @@ client.on("messageCreate", async msg =>
             msg.channel.send({content: `Usage: ${PREFIX}commandcount <commandName>`})
         commandCountFuncs.commandCountIncrement(Command[0])
     }
-
 })
-
